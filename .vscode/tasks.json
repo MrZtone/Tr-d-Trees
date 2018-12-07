@@ -1,0 +1,28 @@
+// "-lglfw3", "-lGL", "-lX11", "-lpthread", "-lXrandr", "-lXi", "-ldl",
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "main.cpp", "src/glad.c", "utils.cpp", "-g", "-lglfw", "-lGL", "-lX11", "-lpthread", "-lXrandr", "-lXi", "-ldl", "-obuild/bleh"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "build/bleh",
+            "args": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true   
+                }
+        }
+    ]
+}
