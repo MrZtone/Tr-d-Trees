@@ -7,7 +7,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "main.cpp", "src/glad.c", "Shader.cpp", "-g", "-lglfw", "-lGL", "-lX11", "-lpthread", "-lXrandr", "-lXi", "-ldl", "-obuild/bleh"
+                "main.cpp", "src/glad.c", "Shader.cpp", "Mesh.cpp", "Vertex.cpp", "-g", "-lglfw", "-lGL", "-lX11", "-lpthread", "-lXrandr", "-lXi", "-ldl", "-obuild/bleh"
             ],
             "group": {
                 "kind": "build",

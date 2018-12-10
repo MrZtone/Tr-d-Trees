@@ -3,6 +3,7 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include "Shader.h"
+#include "Mesh.h"
 
 //Hadles resizing of window
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -43,37 +44,19 @@ int main()
     //Set resize functiont to framebuffer_size_callback
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    glm::vec3 vertices[] = {
-        // positions                    // colors
-        glm::vec3(0.5f, -0.5f, 0.0f),   glm::vec3(1.0f, 0.0f, 0.0f),   // bottom right
-        glm::vec3(-0.5f, -0.5f, 0.0f),  glm::vec3(0.0f, 1.0f, 0.0f),   // bottom left
-        glm::vec3(0.0f,  0.5f, 0.0f),   glm::vec3(0.0f, 0.0f, 1.0f)    // top 
-    };
+    std::vector<Vertex> vertices;
+    vertices.push_back(Vertex(glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
+    vertices.push_back(Vertex(glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
+    vertices.push_back(Vertex(glm::vec3(0.0f,  0.5f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
 
-    unsigned int indices[] = {
-        0, 1, 2
-    }; 
+    std::vector<unsigned int> indices;
+    indices.push_back(0);
+    indices.push_back(1);
+    indices.push_back(2);
 
-    //Create a vertex Buffer 
-    unsigned int VBO;
-    unsigned int VAO; 
-    unsigned int EBO;
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW); 
+    Mesh triangleDeluxe(vertices, indices);
 
     Shader ourShader("vertex.glsl", "fragment.glsl");
-
-    //instruction the shader what data to use
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
-    glEnableVertexAttribArray(1);
 
     //Drawing mode
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -88,9 +71,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         ourShader.use();
-        glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
+        triangleDeluxe.Draw(ourShader);
 
         glfwSwapBuffers(window);
         glfwPollEvents();    
