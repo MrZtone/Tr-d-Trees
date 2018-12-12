@@ -1,9 +1,11 @@
-#include "include/glad/glad.h"
-#include <GLFW/glfw3.h>
-#include <iostream>
-#include <glm/glm.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+
 #include "Shader.h"
 #include "Mesh.h"
+#include "Shader.h"
+#include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 //Hadles resizing of window
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -11,39 +13,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 //Handles user input
 void processInput(GLFWwindow *window);
 
+GLFWwindow* initializeWindow(int width, int height, const char* title);
+
 int main()
 {
-    //Initializing GLFW
-	glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-
-    //Creating a window object
-    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-
-    //Fetching pointers to OpenGL functions
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
-
-    //Set size of rendering window
-    glViewport(0, 0, 800, 600);
-
-    //Set resize functiont to framebuffer_size_callback
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+    GLFWwindow* window = initializeWindow(800,600,"Trees");
     std::vector<Vertex> vertices;
     vertices.push_back(Vertex(glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
     vertices.push_back(Vertex(glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
@@ -56,6 +30,8 @@ int main()
 
     Mesh triangleDeluxe(vertices, indices);
 
+    MatrixStack SceneGraph;
+    
     Shader ourShader("vertex.glsl", "fragment.glsl");
 
     //Drawing mode
@@ -71,7 +47,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         ourShader.use();
-        triangleDeluxe.Draw(ourShader);
+        triangleDeluxe.Draw(ourShader, SceneGraph);
 
         glfwSwapBuffers(window);
         glfwPollEvents();    
@@ -93,4 +69,39 @@ void processInput(GLFWwindow *window)
 {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+}
+
+GLFWwindow* initializeWindow(int width, int height, const char* title)
+{
+    //Initializing GLFW
+	glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+
+    //Creating a window object
+    GLFWwindow* window = glfwCreateWindow(width, height, title, NULL, NULL);
+    if (window == NULL)
+    {
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        exit(-1);
+    }
+    glfwMakeContextCurrent(window);
+
+    //Fetching pointers to OpenGL functions
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        exit(-1);
+    }
+
+    //Set size of rendering window
+    glViewport(0, 0, width, height);
+
+    //Set resize functiont to framebuffer_size_callback
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    return window;
 }

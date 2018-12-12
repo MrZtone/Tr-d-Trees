@@ -2,6 +2,7 @@
 #define MESH_H
 
 #include <vector>
+#include "MatrixStack.h"
 #include"Shader.h"
 #include"Vertex.h"
 
@@ -18,7 +19,7 @@ class Mesh {
         //vector<Texture> textures;
         /*  Functions  */
         Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);//), vector<Texture> textures);
-        void Draw(Shader shader);
+        void Draw(Shader shader, MatrixStack& MS);
     private:
         /*  Render data  */
         unsigned int VAO, VBO, EBO;

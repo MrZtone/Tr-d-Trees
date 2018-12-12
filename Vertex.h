@@ -2,7 +2,6 @@
 #define VERTEX_H
 
 #include <glm/glm.hpp>
-#include <GLFW/glfw3.h>
 
 class Vertex {
     public:

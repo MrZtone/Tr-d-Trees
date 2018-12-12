@@ -1,4 +1,5 @@
 #include "Mesh.h"
+#include <glm/gtc/type_ptr.hpp>
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices)//, vector<Texture> textures)
 {
@@ -37,9 +38,11 @@ void Mesh::setupMesh()
     glBindVertexArray(0);
 }
 
-void Mesh::Draw(Shader shader) 
+void Mesh::Draw(Shader shader, MatrixStack& MS) 
 {
     // draw mesh
+    GLint location_MV = glGetUniformLocation( shader.ID, "MV" );
+    glUniformMatrix4fv( location_MV, 1, GL_FALSE, glm::value_ptr(MS.getMatrix()));
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
