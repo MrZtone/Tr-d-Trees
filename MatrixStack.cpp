@@ -19,7 +19,8 @@ void MatrixStack::flush()
 
 void MatrixStack::push(glm::mat4 m)
 {
-    M = new Matrix{M->matrix*m, M};
+    Matrix* temp = M;
+    M = new Matrix{M->matrix*m, temp};
 }
 
 void MatrixStack::pop()

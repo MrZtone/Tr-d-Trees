@@ -18,11 +18,15 @@ class Mesh {
         std::vector<unsigned int> indices;
         //vector<Texture> textures;
         /*  Functions  */
+        Mesh();
         Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);//), vector<Texture> textures);
         void Draw(Shader shader, MatrixStack& MS);
+        
     private:
         /*  Render data  */
         unsigned int VAO, VBO, EBO;
+        
+    protected:
         /*  Functions    */
         void setupMesh();
 };  

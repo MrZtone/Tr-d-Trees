@@ -4,12 +4,12 @@ layout (location = 1) in vec3 Normal;
 layout (location = 2) in vec3 texCoords;
 
 uniform mat4 MV;
+uniform mat4 PER;
 
-out vec3 ourColor; // specify a color output to the fragment shader
+out vec3 outNormal; // specify a color output to the fragment shader
 
 void main()
 {
-    gl_Position = MV * vec4(Position, 1.0);
-    //vertexColor = vec4(0.5, 0.0, 0.0, 1.0);
-    ourColor = vec3(0.4, 0.3, 0.8);
+    gl_Position = (PER * MV) * vec4(Position, 1.0f);
+    outNormal = mat3(MV) * Normal;
 }
