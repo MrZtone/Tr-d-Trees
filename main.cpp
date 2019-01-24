@@ -7,6 +7,7 @@
 #include "Shader.h"
 #include "Cylinder.h"
 #include "Shader.h"
+#include "LSystem.h"
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
@@ -29,6 +30,10 @@ int main()
     
     Cylinder stem(4.0, 0.5);
     Cylinder stem2(2.0, 0.2);
+
+    LSystem Lindenmayer("A");
+    Lindenmayer.apply_rules(3);
+    std::cout << Lindenmayer.getAxiom() << std::endl;
 
     MatrixStack SceneGraph;
     glm::mat4 per = createPerspective(1.0f, 1.0f, 0.1f, 20.0f);
