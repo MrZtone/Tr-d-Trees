@@ -31,7 +31,7 @@ int main()
     Cylinder stem(4.0, 0.5);
     Cylinder stem2(2.0, 0.2);
 
-    LSystem Lindenmayer("A");
+    LSystem Lindenmayer;
     Lindenmayer.apply_rules(3);
     std::cout << Lindenmayer.getAxiom() << std::endl;
 

@@ -5,15 +5,21 @@
 
 class LSystem {
     private:
-    std::string axiom;
+    std::vector<Component*> axiom;
     void apply_rules();
 
     public:
-    LSystem(std::string ax ="A");
+    LSystem();
+    ~LSystem();
     std::vector<rule> rules;
 
     void apply_rules(int counter);
     std::string getAxiom();
+
+    //tree functions
+    static void grow(double distance);
+    static void split(double angle);
+    static void rotate(double angle);
 };
 
 #endif //LSYSTEM_H
