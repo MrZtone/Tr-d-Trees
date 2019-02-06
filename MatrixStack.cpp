@@ -17,10 +17,18 @@ void MatrixStack::flush()
         pop();
 }
 
-void MatrixStack::push(glm::mat4 m)
+void MatrixStack::addTransformation(glm::mat4 m) {
+    M->matrix = (M->matrix)*m;
+}
+
+void MatrixStack::resetToPush() {
+    M->matrix = M->previous->matrix;
+}
+
+void MatrixStack::push()
 {
     Matrix* temp = M;
-    M = new Matrix{M->matrix*m, temp};
+    M = new Matrix{(M->matrix), temp};
 }
 
 void MatrixStack::pop()

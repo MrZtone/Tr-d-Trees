@@ -5,9 +5,9 @@
 #endif
 
 #include "Shader.h"
-#include "Cylinder.h"
 #include "Shader.h"
 #include "LSystem.h"
+#include "Tree.h"
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
@@ -31,13 +31,10 @@ int main()
     Cylinder stem(4.0, 0.5);
     Cylinder stem2(2.0, 0.2);
 
-    LSystem Lindenmayer;
-    Lindenmayer.apply_rules(3);
-    std::cout << Lindenmayer.getAxiom() << std::endl;
+    Tree treeBoi;
 
     MatrixStack SceneGraph;
     glm::mat4 per = createPerspective(1.0f, 1.0f, 0.1f, 20.0f);
-    std::cout << glm::to_string(per) << std::endl;
     glm::mat4 identity(1.0f);
     float angle = 0;
 
@@ -62,14 +59,17 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         ourShader.use();
+        SceneGraph.push();
         angle+= 0.01;
-        SceneGraph.push(glm::translate(identity, glm::vec3(0.0f, -3.0f, -8.0f)));
-        SceneGraph.push(glm::rotate(identity, angle, glm::vec3(0.0f, 1.0f, 0.0f)));
+        SceneGraph.addTransformation(glm::translate(identity, glm::vec3(0.0f, -3.0f, -8.0f)));
+        SceneGraph.addTransformation(glm::rotate(identity, angle, glm::vec3(0.0f, 1.0f, 0.0f)));
         glUniformMatrix4fv( location_PER, 1, GL_FALSE, glm::value_ptr(per));
-        stem.Draw(ourShader, SceneGraph);
-        SceneGraph.push(glm::translate(identity, glm::vec3(0.0f, 4.0f, 0.0f)));
-        SceneGraph.push(glm::rotate(identity, 45.0f, glm::vec3(0.0f, 0.0f, -1.0f)));
-        stem2.Draw(ourShader, SceneGraph);
+        //stem.Draw(ourShader, SceneGraph);
+        treeBoi.Draw(ourShader, SceneGraph);
+        SceneGraph.addTransformation(glm::translate(identity, glm::vec3(0.0f, 4.0f, 0.0f)));
+        SceneGraph.addTransformation(glm::rotate(identity, 45.0f, glm::vec3(0.0f, 0.0f, -1.0f)));
+        //stem2.Draw(ourShader, SceneGraph);
+        //SceneGraph.pop();
         SceneGraph.flush();
 
         glfwSwapBuffers(window);

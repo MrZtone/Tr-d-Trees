@@ -17,8 +17,11 @@ class MatrixStack {
     ~MatrixStack();
     glm::mat4 getMatrix();
 
-    void push(glm::mat4 m);
+    void push();
     void pop();
+
+    void addTransformation(glm::mat4 m);
+    void resetToPush();
 };
 
 #endif
