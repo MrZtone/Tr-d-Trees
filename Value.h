@@ -17,6 +17,7 @@ public:
     Value(const Value& v);
     bool isConstant();
     bool equals(const Component& C);
+    void setParameter(double p);
 };
 
 #endif

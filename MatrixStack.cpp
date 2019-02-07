@@ -28,7 +28,7 @@ void MatrixStack::resetToPush() {
 void MatrixStack::push()
 {
     Matrix* temp = M;
-    M = new Matrix{(M->matrix), temp};
+    M = new Matrix((M->matrix), temp);
 }
 
 void MatrixStack::pop()

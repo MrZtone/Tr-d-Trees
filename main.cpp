@@ -24,15 +24,17 @@ GLFWwindow* initializeWindow(int width, int height, const char* title);
 
 glm::mat4 createPerspective(float vfov, float aspect, float znear, float zfar);
 
+bool resetTree=false;
+
 int main()
 {
     GLFWwindow* window = initializeWindow(800,800,"Trees");
     
     Cylinder stem(4.0, 0.5);
     Cylinder stem2(2.0, 0.2);
+    Cone cone_u_do_this(4.0, 0.5);
 
-    Tree treeBoi;
-
+    Tree* treeBoi = new Tree();
     MatrixStack SceneGraph;
     glm::mat4 per = createPerspective(1.0f, 1.0f, 0.1f, 20.0f);
     glm::mat4 identity(1.0f);
@@ -54,6 +56,11 @@ int main()
     while(!glfwWindowShouldClose(window))
     {
         processInput(window);
+        if(resetTree) {
+            delete treeBoi;
+            treeBoi = new Tree();
+            resetTree=false;
+        }
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -65,7 +72,8 @@ int main()
         SceneGraph.addTransformation(glm::rotate(identity, angle, glm::vec3(0.0f, 1.0f, 0.0f)));
         glUniformMatrix4fv( location_PER, 1, GL_FALSE, glm::value_ptr(per));
         //stem.Draw(ourShader, SceneGraph);
-        treeBoi.Draw(ourShader, SceneGraph);
+        //cone_u_do_this.Draw(ourShader, SceneGraph);
+        treeBoi->Draw(ourShader, SceneGraph);
         SceneGraph.addTransformation(glm::translate(identity, glm::vec3(0.0f, 4.0f, 0.0f)));
         SceneGraph.addTransformation(glm::rotate(identity, 45.0f, glm::vec3(0.0f, 0.0f, -1.0f)));
         //stem2.Draw(ourShader, SceneGraph);
@@ -77,6 +85,7 @@ int main()
     }
 
     //Close window
+    delete treeBoi;
     glfwTerminate();
     return 0;
 }
@@ -98,6 +107,9 @@ void processInput(GLFWwindow *window)
 
     if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    if(glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+        resetTree=true;
 }
 
 GLFWwindow* initializeWindow(int width, int height, const char* title)

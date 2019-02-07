@@ -3,6 +3,8 @@
 
 #include "LSystem.h"
 #include "Cylinder.h"
+#include "Leaf.h"
+#include "Cone.h"
 #include "MatrixStack.h"
 
 class Tree
@@ -10,6 +12,8 @@ class Tree
 private:
     LSystem L;
     Cylinder branch;
+    Leaf leaf;
+    Cone cone;
 public:
     Tree();
 

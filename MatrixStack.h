@@ -6,6 +6,7 @@
 struct Matrix {
     glm::mat4 matrix;
     Matrix *previous;
+    Matrix(glm::mat4 m, Matrix* pre) : matrix(m), previous(pre){};
 };
 
 class MatrixStack {

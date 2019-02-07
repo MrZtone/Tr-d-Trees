@@ -36,7 +36,10 @@ std::vector<Component*> rule::getReplacement() {
             rep.push_back(new Constant(*(static_cast<Constant*>(*it))));
         }
         else {
-            rep.push_back(new Value(*(static_cast<Value*>(*it))));
+            Value* temp = new Value(*(static_cast<Value*>(*it)));
+            if(temp->signifier == 'P' || temp->signifier == 'M')
+                temp->setParameter(222.0);
+            rep.push_back(temp);
         }
         it++;
     }

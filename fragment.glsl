@@ -2,6 +2,7 @@
 out vec4 FragColor;
 
 in vec3 outNormal;
+in vec3 outColor;
 
 void main()
 {
@@ -9,7 +10,7 @@ void main()
 
     vec3 ka = vec3(1.0, 1.0, 1.0);          // ambient reflection color
     vec3 Ia = vec3(0.05, 0.05, 0.05);       // ambient illumination color
-    vec3 kd = vec3(0.4, 0.1, 0.8);          // diffuse surface reflection color
+    vec3 kd = outColor;                     // diffuse surface reflection color
     vec3 Id = vec3(1.0, 1.0, 1.0);          // diffuse illumination color
     vec3 ks = vec3(1.0, 1.0, 1.0);          // specular surface reflection color
     vec3 Is = vec3(1.0, 1.0, 1.0);          // specular illumination color

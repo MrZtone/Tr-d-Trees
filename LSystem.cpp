@@ -18,45 +18,70 @@ glm::mat4 LSystem::rotate(double angle) {
 }
 
 LSystem::LSystem() {
-    axiom.reserve(5000); //Reserving for 200 elements in axiom, Explicit size reserving is needed to prevent iterator invalidation
-    axiom.push_back(new Value('X', (nullptr), 2.0));
+    axiom.reserve(20000); //Reserving for 200 elements in axiom, Explicit size reserving is needed to prevent iterator invalidation
+    axiom.push_back(new Value('F', (LSystem::grow), 0.2));
     std::vector<Component*> BAB, C1, C2, C3;
+    
     BAB.push_back(new Value('F', (LSystem::grow), 0.2));
     BAB.push_back(new Value('+', (LSystem::split), 45.0));
     BAB.push_back(new Value('P', (LSystem::rotate), 45.0));
-    BAB.push_back(new Constant('['));
-    BAB.push_back(new Constant('['));
-    BAB.push_back(new Value('X', (nullptr), 2.0));
-    BAB.push_back(new Constant(']'));
-    BAB.push_back(new Value('-', (LSystem::split), -45.0));
-    BAB.push_back(new Value('M', (LSystem::rotate), -45.0));
-    BAB.push_back(new Value('X', (nullptr), 2.0));
-    BAB.push_back(new Constant(']'));
-    BAB.push_back(new Value('-', (LSystem::split), -45.0));
-    BAB.push_back(new Value('M', (LSystem::rotate), -45.0));
     BAB.push_back(new Value('F', (LSystem::grow), 0.2));
     BAB.push_back(new Constant('['));
     BAB.push_back(new Value('-', (LSystem::split), -45.0));
     BAB.push_back(new Value('M', (LSystem::rotate), -45.0));
     BAB.push_back(new Value('F', (LSystem::grow), 0.2));
-    BAB.push_back(new Value('X', (nullptr), 2.0));
     BAB.push_back(new Constant(']'));
     BAB.push_back(new Value('+', (LSystem::split), 45.0));
     BAB.push_back(new Value('P', (LSystem::rotate), 45.0));
-    BAB.push_back(new Value('X', (nullptr), 2.0));
 
+    /*
     C1.push_back(new Value('F', (LSystem::grow), 0.2));
     C1.push_back(new Value('F', (LSystem::grow), 0.2));
     C2.push_back(new Value('F', (LSystem::grow), 0.2));
     C2.push_back(new Value('F', (LSystem::grow), 0.2));
     C3.push_back(new Value('F', (LSystem::grow), 0.2));
     C3.push_back(new Value('F', (LSystem::grow), 0.2));
+    */
+    
+    C1.push_back(new Value('F', (LSystem::grow), 0.2));
+    C1.push_back(new Value('P', (LSystem::rotate), 45.0));
+    C1.push_back(new Constant('['));
+    C1.push_back(new Value('-', (LSystem::split), -45.0));
+    C1.push_back(new Value('M', (LSystem::rotate), -45.0));
+    C1.push_back(new Value('F', (LSystem::grow), 0.2));
+    C1.push_back(new Value('X', (nullptr), 0.2));
+    C1.push_back(new Constant(']'));
+    C1.push_back(new Constant('['));
+    C1.push_back(new Value('-', (LSystem::split), -45.0));
+    C1.push_back(new Value('M', (LSystem::rotate), -45.0));
+    C1.push_back(new Value('F', (LSystem::grow), 0.2));
+    C1.push_back(new Value('X', (nullptr), 0.2));
+    C1.push_back(new Constant(']'));
+    C1.push_back(new Value('F', (LSystem::grow), 0.2));
+
+    C2.push_back(new Value('F', (LSystem::grow), 0.2));
+    C2.push_back(new Value('P', (LSystem::rotate), 45.0));
+    C2.push_back(new Constant('['));
+    C2.push_back(new Value('+', (LSystem::split), 45.0));
+    C1.push_back(new Value('P', (LSystem::rotate), 45.0));
+    C2.push_back(new Value('F', (LSystem::grow), 0.2));
+    C2.push_back(new Value('X', (nullptr), 0.2));
+    C2.push_back(new Constant(']'));
+    C2.push_back(new Value('F', (LSystem::grow), 0.2));
+
+    C3.push_back(new Value('F', (LSystem::grow), 0.2));
+    C3.push_back(new Constant('['));
+    //C3.push_back(new Value('-', (LSystem::split), -45.0));
+    //C3.push_back(new Value('F', (LSystem::grow), 0.2));
+    C3.push_back(new Value('X', (nullptr), 0.2));
+    C3.push_back(new Constant(']'));
+    //C3.push_back(new Value('F', (LSystem::grow), 0.2));
 
     std::vector<std::vector<Component*>> replacement1{BAB, BAB, BAB};
     std::vector<std::vector<Component*>> replacement2{C1, C2, C3};
-    std::discrete_distribution<int> distribution {1,1,1};
+    std::discrete_distribution<int> distribution {2,2,1};
 
-    rules.push_back(rule(Value('X', (nullptr), 2.0),replacement1, distribution));
+    //rules.push_back(rule(Value('X', (nullptr), 2.0),replacement1, distribution));
     rules.push_back(rule(Value('F', (LSystem::grow), 2.0),replacement2, distribution));
     std::cout << "Constructor done" << std::endl;
 }

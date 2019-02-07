@@ -9,18 +9,20 @@ Cylinder::Cylinder(float h, float r)
     float segmentStart = 0.0;
     float segmentEnd = angle;
 
+    glm::vec3 brown(1.0f, 0.5f, 0.5f);
+
     glm::vec3 centerBottom(0.0, 0.0, 0.0);
     glm::vec3 centerTop(0.0, height, 0.0);
 
-    vertices.push_back(Vertex(centerBottom, glm::vec3(0.0f, -1.0f, 0.0f))); // 0
-    vertices.push_back(Vertex(centerTop, glm::vec3(0.0f, 1.0f, 0.0f))); // 1
+    vertices.push_back(Vertex(centerBottom, glm::vec3(0.0f, -1.0f, 0.0f), brown)); // 0
+    vertices.push_back(Vertex(centerTop, glm::vec3(0.0f, 1.0f, 0.0f), brown)); // 1
 
     //Botom
-    vertices.push_back(Vertex(glm::vec3(radius, 0.0, 0.0), glm::vec3(1.0, 0.0, 0.0))); // 2 + 0*4 + 0 = 2
-    vertices.push_back(Vertex(glm::vec3(radius, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0))); // 2 + 0*4 + 1 = 3
+    vertices.push_back(Vertex(glm::vec3(radius, 0.0, 0.0), glm::vec3(1.0, 0.0, 0.0), brown)); // 2 + 0*4 + 0 = 2
+    vertices.push_back(Vertex(glm::vec3(radius, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0), brown)); // 2 + 0*4 + 1 = 3
     //Top
-    vertices.push_back(Vertex(glm::vec3(radius, height, 0.0), glm::vec3(1.0, 0.0, 0.0))); // 2 + 0*4 + 2 = 4
-    vertices.push_back(Vertex(glm::vec3(radius, height, 0.0), glm::vec3(0.0, 1.0, 0.0))); // 2 + 0*4 + 3 = 5
+    vertices.push_back(Vertex(glm::vec3(0.92*radius, height, 0.0), glm::vec3(1.0, 0.0, 0.0), brown)); // 2 + 0*4 + 2 = 4
+    vertices.push_back(Vertex(glm::vec3(0.92*radius, height, 0.0), glm::vec3(0.0, 1.0, 0.0), brown)); // 2 + 0*4 + 3 = 5
 
 
     for(int i = 1; i <= NumberOfSegment; ++i)
@@ -31,11 +33,11 @@ Cylinder::Cylinder(float h, float r)
         if (i < NumberOfSegment)
         {
             //Botom Vertices
-            vertices.push_back(Vertex(glm::vec3(radius*cosf(angle), 0.0, radius*sinf(angle)), glm::vec3(cosf(angle), 0.0, sinf(angle)))); // 2 + 0*0 + 0
-            vertices.push_back(Vertex(glm::vec3(radius*cosf(angle), 0.0, radius*sinf(angle)), glm::vec3(0.0, -1.0, 0.0))); // 2 + 0*0 + 1
+            vertices.push_back(Vertex(glm::vec3(radius*cosf(angle), 0.0, radius*sinf(angle)), glm::vec3(cosf(angle), 0.0, sinf(angle)), brown)); // 2 + 0*0 + 0
+            vertices.push_back(Vertex(glm::vec3(radius*cosf(angle), 0.0, radius*sinf(angle)), glm::vec3(0.0, -1.0, 0.0), brown)); // 2 + 0*0 + 1
             //Top Vertices
-            vertices.push_back(Vertex(glm::vec3(radius*cosf(angle), height, radius*sinf(angle)), glm::vec3(cosf(angle), 0.0, sinf(angle)))); // 2 + 0*0 + 2
-            vertices.push_back(Vertex(glm::vec3(radius*cosf(angle), height, radius*sinf(angle)), glm::vec3(0.0, 1.0, 0.0))); // 2 + 0*0 + 3
+            vertices.push_back(Vertex(glm::vec3(0.92*radius*cosf(angle), height, radius*sinf(angle)), glm::vec3(cosf(angle), 0.0, sinf(angle)), brown)); // 2 + 0*0 + 2
+            vertices.push_back(Vertex(glm::vec3(0.92*radius*cosf(angle), height, radius*sinf(angle)), glm::vec3(0.0, 1.0, 0.0), brown)); // 2 + 0*0 + 3
         }
 
         int index = i%NumberOfSegment;

@@ -7,12 +7,12 @@ class Vertex {
     public:
     
     Vertex();
-    Vertex(glm::vec3 p, glm::vec3 n);
+    Vertex(glm::vec3 p, glm::vec3 n, glm::vec3 c);
 
     private:
     glm::vec3 Position;
     glm::vec3 Normal;
-    glm::vec2 TexCoords;
+    glm::vec3 Color;
     friend class Mesh;
 };
 

@@ -10,3 +10,7 @@ bool Value::equals(const Component& C) {
     const Value* b = dynamic_cast< const Value* >( &C );
     return b != NULL && signifier == b->signifier;
 }
+
+void Value::setParameter(double p) {
+    parameter += p;
+}
