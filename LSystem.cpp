@@ -19,92 +19,71 @@ glm::mat4 LSystem::rotate(double angle) {
 
 LSystem::LSystem() {
     axiom.reserve(20000); //Reserving for 200 elements in axiom, Explicit size reserving is needed to prevent iterator invalidation
-    axiom.push_back(new Value('F', (LSystem::grow), 0.2));
-    std::vector<Component*> BAB, C1, C2, C3;
+    axiom.push_back(Component('F', (LSystem::grow), 0.2));
+    std::vector<Component> BAB, C1, C2, C3;
     
-    BAB.push_back(new Value('F', (LSystem::grow), 0.2));
-    BAB.push_back(new Value('+', (LSystem::split), 45.0));
-    BAB.push_back(new Value('P', (LSystem::rotate), 45.0));
-    BAB.push_back(new Value('F', (LSystem::grow), 0.2));
-    BAB.push_back(new Constant('['));
-    BAB.push_back(new Value('-', (LSystem::split), -45.0));
-    BAB.push_back(new Value('M', (LSystem::rotate), -45.0));
-    BAB.push_back(new Value('F', (LSystem::grow), 0.2));
-    BAB.push_back(new Constant(']'));
-    BAB.push_back(new Value('+', (LSystem::split), 45.0));
-    BAB.push_back(new Value('P', (LSystem::rotate), 45.0));
-
-    /*
-    C1.push_back(new Value('F', (LSystem::grow), 0.2));
-    C1.push_back(new Value('F', (LSystem::grow), 0.2));
-    C2.push_back(new Value('F', (LSystem::grow), 0.2));
-    C2.push_back(new Value('F', (LSystem::grow), 0.2));
-    C3.push_back(new Value('F', (LSystem::grow), 0.2));
-    C3.push_back(new Value('F', (LSystem::grow), 0.2));
-    */
+    BAB.push_back(Component('F', (LSystem::grow), 0.2));
+    BAB.push_back(Component('+', (LSystem::split), 45.0));
+    BAB.push_back(Component('P', (LSystem::rotate), 45.0));
+    BAB.push_back(Component('F', (LSystem::grow), 0.2));
+    BAB.push_back(Component('['));
+    BAB.push_back(Component('-', (LSystem::split), -45.0));
+    BAB.push_back(Component('M', (LSystem::rotate), -45.0));
+    BAB.push_back(Component('F', (LSystem::grow), 0.2));
+    BAB.push_back(Component(']'));
+    BAB.push_back(Component('+', (LSystem::split), 45.0));
+    BAB.push_back(Component('P', (LSystem::rotate), 45.0));
     
-    C1.push_back(new Value('F', (LSystem::grow), 0.2));
-    C1.push_back(new Value('P', (LSystem::rotate), 45.0));
-    C1.push_back(new Constant('['));
-    C1.push_back(new Value('-', (LSystem::split), -45.0));
-    C1.push_back(new Value('M', (LSystem::rotate), -45.0));
-    C1.push_back(new Value('F', (LSystem::grow), 0.2));
-    C1.push_back(new Value('X', (nullptr), 0.2));
-    C1.push_back(new Constant(']'));
-    C1.push_back(new Constant('['));
-    C1.push_back(new Value('-', (LSystem::split), -45.0));
-    C1.push_back(new Value('M', (LSystem::rotate), -45.0));
-    C1.push_back(new Value('F', (LSystem::grow), 0.2));
-    C1.push_back(new Value('X', (nullptr), 0.2));
-    C1.push_back(new Constant(']'));
-    C1.push_back(new Value('F', (LSystem::grow), 0.2));
+    C1.push_back(Component('F', (LSystem::grow), 0.2));
+    C1.push_back(Component('P', (LSystem::rotate), 45.0));
+    C1.push_back(Component('['));
+    C1.push_back(Component('-', (LSystem::split), -45.0));
+    C1.push_back(Component('M', (LSystem::rotate), -45.0));
+    C1.push_back(Component('F', (LSystem::grow), 0.2));
+    C1.push_back(Component('X', (nullptr), 0.2));
+    C1.push_back(Component(']'));
+    C1.push_back(Component('['));
+    C1.push_back(Component('-', (LSystem::split), -45.0));
+    C1.push_back(Component('M', (LSystem::rotate), -45.0));
+    C1.push_back(Component('F', (LSystem::grow), 0.2));
+    C1.push_back(Component('X', (nullptr), 0.2));
+    C1.push_back(Component(']'));
+    C1.push_back(Component('F', (LSystem::grow), 0.2));
 
-    C2.push_back(new Value('F', (LSystem::grow), 0.2));
-    C2.push_back(new Value('P', (LSystem::rotate), 45.0));
-    C2.push_back(new Constant('['));
-    C2.push_back(new Value('+', (LSystem::split), 45.0));
-    C1.push_back(new Value('P', (LSystem::rotate), 45.0));
-    C2.push_back(new Value('F', (LSystem::grow), 0.2));
-    C2.push_back(new Value('X', (nullptr), 0.2));
-    C2.push_back(new Constant(']'));
-    C2.push_back(new Value('F', (LSystem::grow), 0.2));
+    C2.push_back(Component('F', (LSystem::grow), 0.2));
+    C2.push_back(Component('P', (LSystem::rotate), 45.0));
+    C2.push_back(Component('['));
+    C2.push_back(Component('+', (LSystem::split), 45.0));
+    C1.push_back(Component('P', (LSystem::rotate), 45.0));
+    C2.push_back(Component('F', (LSystem::grow), 0.2));
+    C2.push_back(Component('X', (nullptr), 0.2));
+    C2.push_back(Component(']'));
+    C2.push_back(Component('F', (LSystem::grow), 0.2));
 
-    C3.push_back(new Value('F', (LSystem::grow), 0.2));
-    C3.push_back(new Constant('['));
-    //C3.push_back(new Value('-', (LSystem::split), -45.0));
-    //C3.push_back(new Value('F', (LSystem::grow), 0.2));
-    C3.push_back(new Value('X', (nullptr), 0.2));
-    C3.push_back(new Constant(']'));
-    //C3.push_back(new Value('F', (LSystem::grow), 0.2));
+    C3.push_back(Component('F', (LSystem::grow), 1.0));
+    C3.push_back(Component('['));
+    C3.push_back(Component('X', (nullptr), 0.2));
+    C3.push_back(Component(']'));
 
-    std::vector<std::vector<Component*>> replacement1{BAB, BAB, BAB};
-    std::vector<std::vector<Component*>> replacement2{C1, C2, C3};
+    std::vector<std::vector<Component>> replacement1{BAB, BAB, BAB};
+    std::vector<std::vector<Component>> replacement2{C1, C2, C3};
     std::discrete_distribution<int> distribution {2,2,1};
 
     //rules.push_back(rule(Value('X', (nullptr), 2.0),replacement1, distribution));
-    rules.push_back(rule(Value('F', (LSystem::grow), 2.0),replacement2, distribution));
+    rules.push_back(rule(Component('F', (LSystem::grow), 2.0),replacement2, distribution));
     std::cout << "Constructor done" << std::endl;
 }
 
-LSystem::~LSystem() {
-    std::vector<Component*>::iterator it = axiom.begin();
-    while(it != axiom.end()) {
-        delete (*it);
-        it++;
-    }
-}
-
 void LSystem::apply_rules() {
-    std::vector<Component*>::iterator it =  axiom.begin(), next;
+    std::vector<Component>::iterator it =  axiom.begin(), next;
     
     while(it != axiom.end()) { //go through values in axiom
         next = it + 1;
         //go through, check and apply rules to axiom value
         for(std::vector<rule>::iterator rule = rules.begin(); rule != rules.end(); rule++) {
-            if((*it)->equals((*rule).condition)) {
-                std::vector<Component*> replacement = (*rule).getReplacement();
+            if((*it).equals((*rule).condition)) {
+                std::vector<Component> replacement = (*rule).getReplacement((*it));
                 axiom.insert(it+1,replacement.begin(), replacement.end());
-                delete (*it);
                 axiom.erase(it);
                 next = it + replacement.size();
                 break;
@@ -123,14 +102,9 @@ void LSystem::apply_rules(int counter) {
 
 std::string LSystem::getAxiom() {
     std::string returnString = "";
-    std::vector<Component*>::iterator it =  axiom.begin();
+    std::vector<Component>::iterator it =  axiom.begin();
     for ( ; it != axiom.end(); it++) {
-        returnString += (*it)->signifier;
-        if(!(*it)->isConstant()) {
-            Value* temp = static_cast<Value*>(*it);
-            if(temp->function != nullptr)
-                (temp->function)(temp->parameter);
-        }
+        returnString += (*it).signifier;
     }
     return returnString;
 }

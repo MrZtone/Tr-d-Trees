@@ -9,12 +9,11 @@
 class LSystem {
     friend class Tree;
     private:
-    std::vector<Component*> axiom;
+    std::vector<Component> axiom;
     void apply_rules();
 
     public:
     LSystem();
-    ~LSystem();
     std::vector<rule> rules;
 
     void apply_rules(int counter);
