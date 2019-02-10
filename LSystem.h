@@ -9,7 +9,7 @@
 class LSystem {
     friend class Tree;
     private:
-    std::vector<Component> axiom;
+    std::vector<Symbol> axiom;
     void apply_rules();
 
     public:
@@ -20,9 +20,9 @@ class LSystem {
     std::string getAxiom();
 
     //tree functions
-    static glm::mat4 grow(double distance);
-    static glm::mat4 split(double angle);
-    static glm::mat4 rotate(double angle);
+    static glm::mat4 grow(float distance);
+    static glm::mat4 split(float angle);
+    static glm::mat4 rotate(float angle);
 };
 
 #endif //LSYSTEM_H

@@ -1,7 +1,7 @@
 #include "rule.h"
 #include <iostream>
 
-rule::rule(Component cond, std::vector<std::vector<Component>> rep, std::discrete_distribution<> dist) :
+rule::rule(Symbol cond, std::vector<std::vector<Symbol>> rep, std::discrete_distribution<> dist) :
     condition(cond),
     replacements(rep),
     distribution(dist),
@@ -11,13 +11,13 @@ rule::rule(Component cond, std::vector<std::vector<Component>> rep, std::discret
 rule::rule(rule && r) :condition(r.condition), replacements(std::move(r.replacements)), gen(std::move(r.gen)), distribution(std::move(r.distribution)) {
 }
 
-std::vector<Component> rule::getReplacement(const Component& c) {
+std::vector<Symbol> rule::getReplacement(const Symbol& c) {
     int index = distribution(gen);
-    std::vector<Component> rep;
-    std::vector<Component>::iterator it = replacements[index].begin();
+    std::vector<Symbol> rep;
+    std::vector<Symbol>::iterator it = replacements[index].begin();
     while(it != replacements[index].end())
     {
-        Component* temp = new Component((*it));
+        Symbol* temp = new Symbol((*it));
         if(temp->signifier == 'M' && temp->signifier == 'P')
             temp->parameter= c.parameter + 222;
         rep.push_back(*temp);

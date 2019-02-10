@@ -4,22 +4,22 @@
 #include <string>
 #include <vector>
 #include <random>
-#include "Component.h"
+#include "Symbol.h"
 
 class rule {
     friend class LSystem;
     private:
-    Component condition;
-    std::vector<std::vector<Component>> replacements;
+    Symbol condition;
+    std::vector<std::vector<Symbol>> replacements;
     std::discrete_distribution<int> distribution;
 
     std::random_device rd;
     std::mt19937 gen;
 
     public:
-    rule(Component cond, std::vector<std::vector<Component>> rep, std::discrete_distribution<> dist);
+    rule(Symbol cond, std::vector<std::vector<Symbol>> rep, std::discrete_distribution<> dist);
     rule(rule && r);
-    std::vector<Component> getReplacement(const Component& c);
+    std::vector<Symbol> getReplacement(const Symbol& c);
 };
 
  #endif

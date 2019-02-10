@@ -1,17 +1,17 @@
 #include "Leaf.h"
 
-Leaf::Leaf(float h) {
+Leaf::Leaf(float h, glm::vec3 col) {
     height = h;
-    glm::vec3 green(0.0f, 1.0f, 1.0f);
-    vertices.push_back(Vertex(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 1.0), green));
-    vertices.push_back(Vertex(glm::vec3(-0.3*height, 0.3*height, 0.0), glm::vec3(0.0, 0.0, 1.0), green));
-    vertices.push_back(Vertex(glm::vec3(0.3*height, 0.3*height, 0.0), glm::vec3(0.0, 0.0, 1.0), green));
-    vertices.push_back(Vertex(glm::vec3(0.0, height, 0.0), glm::vec3(0.0, 0.0, 1.0), green));
+    
+    vertices.push_back(Vertex(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 1.0), col));
+    vertices.push_back(Vertex(glm::vec3(-0.3*height, 0.3*height, 0.0), glm::vec3(0.0, 0.0, 1.0), col));
+    vertices.push_back(Vertex(glm::vec3(0.3*height, 0.3*height, 0.0), glm::vec3(0.0, 0.0, 1.0), col));
+    vertices.push_back(Vertex(glm::vec3(0.0, height, 0.0), glm::vec3(0.0, 0.0, 1.0), col));
 
-    vertices.push_back(Vertex(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, -1.0), green));
-    vertices.push_back(Vertex(glm::vec3(-0.3*height, 0.3*height, 0.0), glm::vec3(0.0, 0.0, -1.0), green));
-    vertices.push_back(Vertex(glm::vec3(0.3*height, 0.3*height, 0.0), glm::vec3(0.0, 0.0, -1.0), green));
-    vertices.push_back(Vertex(glm::vec3(0.0, height, 0.0), glm::vec3(0.0, 0.0, -1.0), green));
+    vertices.push_back(Vertex(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, -1.0), col));
+    vertices.push_back(Vertex(glm::vec3(-0.3*height, 0.3*height, 0.0), glm::vec3(0.0, 0.0, -1.0), col));
+    vertices.push_back(Vertex(glm::vec3(0.3*height, 0.3*height, 0.0), glm::vec3(0.0, 0.0, -1.0), col));
+    vertices.push_back(Vertex(glm::vec3(0.0, height, 0.0), glm::vec3(0.0, 0.0, -1.0), col));
 
     indices.push_back(0);
     indices.push_back(3);

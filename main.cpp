@@ -6,11 +6,8 @@
 
 #include "Shader.h"
 #include "Shader.h"
-#include "LSystem.h"
 #include "Tree.h"
 #include <GLFW/glfw3.h>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/transform.hpp>
 #include <glm/gtx/string_cast.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -29,10 +26,6 @@ bool resetTree=false;
 int main()
 {
     GLFWwindow* window = initializeWindow(800,800,"Trees");
-    
-    Cylinder stem(4.0, 0.5);
-    Cylinder stem2(2.0, 0.2);
-    Cone cone_u_do_this(4.0, 0.5);
 
     Tree* treeBoi = new Tree();
     MatrixStack SceneGraph;
@@ -71,13 +64,7 @@ int main()
         SceneGraph.addTransformation(glm::translate(identity, glm::vec3(0.0f, -3.0f, -8.0f)));
         SceneGraph.addTransformation(glm::rotate(identity, angle, glm::vec3(0.0f, 1.0f, 0.0f)));
         glUniformMatrix4fv( location_PER, 1, GL_FALSE, glm::value_ptr(per));
-        //stem.Draw(ourShader, SceneGraph);
-        //cone_u_do_this.Draw(ourShader, SceneGraph);
         treeBoi->Draw(ourShader, SceneGraph);
-        SceneGraph.addTransformation(glm::translate(identity, glm::vec3(0.0f, 4.0f, 0.0f)));
-        SceneGraph.addTransformation(glm::rotate(identity, 45.0f, glm::vec3(0.0f, 0.0f, -1.0f)));
-        //stem2.Draw(ourShader, SceneGraph);
-        //SceneGraph.pop();
         SceneGraph.flush();
 
         glfwSwapBuffers(window);
