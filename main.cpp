@@ -29,7 +29,7 @@ int main()
 
     Tree* treeBoi = new Tree();
     MatrixStack SceneGraph;
-    glm::mat4 per = createPerspective(1.0f, 1.0f, 0.1f, 20.0f);
+    glm::mat4 per = createPerspective(0.8f, 1.0f, 0.1f, 20.0f);
     glm::mat4 identity(1.0f);
     float angle = 0;
 
@@ -55,7 +55,7 @@ int main()
             resetTree=false;
         }
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         ourShader.use();

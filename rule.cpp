@@ -17,10 +17,10 @@ std::vector<Symbol> rule::getReplacement(const Symbol& c) {
     std::vector<Symbol>::iterator it = replacements[index].begin();
     while(it != replacements[index].end())
     {
-        Symbol* temp = new Symbol((*it));
-        if(temp->signifier == 'M' && temp->signifier == 'P')
-            temp->parameter= c.parameter + 222;
-        rep.push_back(*temp);
+        Symbol temp = (*it);
+        if(temp.signifier == 'R')
+            temp.parameter= c.parameter + 137.5;
+        rep.push_back(temp);
         it++;
     }
     return rep;

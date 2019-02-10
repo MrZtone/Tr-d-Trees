@@ -7,16 +7,16 @@
 #include "Cone.h"
 #include "MatrixStack.h"
 
-class Tree
-{
-private:
+class Tree {
+
+    private:
     LSystem L;
     Cylinder branch;
     Leaf leaf;
     Cone cone;
-public:
-    Tree();
 
+    public:
+    Tree();
     void Draw(Shader shader, MatrixStack& MS);
 };
 

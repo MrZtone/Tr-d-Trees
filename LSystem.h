@@ -7,22 +7,24 @@
 #include <glm/gtx/transform.hpp>
 
 class LSystem {
-    friend class Tree;
+
     private:
     std::vector<Symbol> axiom;
+    std::vector<rule> rules;
+
     void apply_rules();
 
     public:
     LSystem();
-    std::vector<rule> rules;
-
-    void apply_rules(int counter);
+    void apply_rules(int counter); // apply rules multiple times
     std::string getAxiom();
 
     //tree functions
     static glm::mat4 grow(float distance);
     static glm::mat4 split(float angle);
     static glm::mat4 rotate(float angle);
+
+    friend class Tree;
 };
 
 #endif //LSYSTEM_H

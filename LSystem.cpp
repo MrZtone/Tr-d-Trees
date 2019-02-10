@@ -18,53 +18,57 @@ glm::mat4 LSystem::rotate(float angle) {
 LSystem::LSystem() {
     axiom.reserve(20000); //Reserving for 200 elements in axiom, Explicit size reserving is needed to prevent iterator invalidation
     axiom.push_back(Symbol('X'));
-    std::vector<Symbol> BAB, C1, C2, C3;
+    std::vector<Symbol> BAB, C1, C2, C3, A;
     
-    BAB.push_back(Symbol('F', (LSystem::grow), 0.5));
+    BAB.push_back(Symbol('G', (LSystem::grow), 0.5));
     BAB.push_back(Symbol('['));
-    BAB.push_back(Symbol('+', (LSystem::split), 45.0));
-    BAB.push_back(Symbol('P', (LSystem::rotate), 45.0));
-    BAB.push_back(Symbol('F', (LSystem::grow), 0.2));
+    BAB.push_back(Symbol('S', (LSystem::split), 45.0));
+    BAB.push_back(Symbol('R', (LSystem::rotate), 137.5));
+    BAB.push_back(Symbol('G', (LSystem::grow), 0.2));
     BAB.push_back(Symbol(']'));
     BAB.push_back(Symbol('X'));
     
-    C1.push_back(Symbol('F', (LSystem::grow), 0.2));
-    C1.push_back(Symbol('P', (LSystem::rotate), 45.0));
+    C1.push_back(Symbol('G', (LSystem::grow), 0.2));
+    C1.push_back(Symbol('R', (LSystem::rotate), 137.5));
     C1.push_back(Symbol('['));
-    C1.push_back(Symbol('-', (LSystem::split), -45.0));
-    C1.push_back(Symbol('M', (LSystem::rotate), -45.0));
-    C1.push_back(Symbol('F', (LSystem::grow), 0.2));
+    C1.push_back(Symbol('S', (LSystem::split), -45.0));
+    C1.push_back(Symbol('R', (LSystem::rotate), -137.5));
+    C1.push_back(Symbol('G', (LSystem::grow), 0.2));
     C1.push_back(Symbol('X'));
     C1.push_back(Symbol(']'));
     C1.push_back(Symbol('['));
-    C1.push_back(Symbol('-', (LSystem::split), -45.0));
-    C1.push_back(Symbol('M', (LSystem::rotate), -45.0));
-    C1.push_back(Symbol('F', (LSystem::grow), 0.2));
+    C1.push_back(Symbol('S', (LSystem::split), -45.0));
+    C1.push_back(Symbol('R', (LSystem::rotate), -137.5));
+    C1.push_back(Symbol('G', (LSystem::grow), 0.2));
     C1.push_back(Symbol(']'));
-    C1.push_back(Symbol('F', (LSystem::grow), 0.2));
+    C1.push_back(Symbol('G', (LSystem::grow), 0.2));
 
-    C2.push_back(Symbol('F', (LSystem::grow), 0.2));
-    C2.push_back(Symbol('P', (LSystem::rotate), 45.0));
+    C2.push_back(Symbol('G', (LSystem::grow), 0.2));
+    C2.push_back(Symbol('R', (LSystem::rotate), 137.5));
     C2.push_back(Symbol('['));
-    C2.push_back(Symbol('+', (LSystem::split), 45.0));
-    C1.push_back(Symbol('P', (LSystem::rotate), 45.0));
-    C2.push_back(Symbol('F', (LSystem::grow), 0.2));
+    C2.push_back(Symbol('S', (LSystem::split), 45.0));
+    C1.push_back(Symbol('R', (LSystem::rotate), 137.5));
+    C2.push_back(Symbol('G', (LSystem::grow), 0.2));
     C2.push_back(Symbol('X'));
     C2.push_back(Symbol(']'));
-    C2.push_back(Symbol('F', (LSystem::grow), 0.2));
+    C2.push_back(Symbol('G', (LSystem::grow), 0.2));
 
-    C3.push_back(Symbol('F', (LSystem::grow), 0.3));
+    C3.push_back(Symbol('G', (LSystem::grow), 0.3));
     C3.push_back(Symbol('['));
     C3.push_back(Symbol('X'));
     C3.push_back(Symbol(']'));
+
+    A.push_back(Symbol('R', (LSystem::rotate), 137.5));
 
     std::vector<std::vector<Symbol>> replacement1{BAB};
     std::discrete_distribution<int> distribution1 {1};
     std::vector<std::vector<Symbol>> replacement2{C1, C2, C3};
     std::discrete_distribution<int> distribution2 {3,3,1};
+    std::vector<std::vector<Symbol>> replacement3{A};
 
     rules.push_back(rule(Symbol('X'),replacement1, distribution1));
-    rules.push_back(rule(Symbol('F', (LSystem::grow), 2.0),replacement2, distribution2));
+    rules.push_back(rule(Symbol('G', (LSystem::grow), 2.0),replacement2, distribution2));
+    rules.push_back(rule(Symbol('R', (LSystem::rotate), 137.5),replacement3, distribution1));
     std::cout << "Constructor done" << std::endl;
 }
 

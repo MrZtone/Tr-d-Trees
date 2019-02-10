@@ -7,7 +7,7 @@
 #include "Symbol.h"
 
 class rule {
-    friend class LSystem;
+    
     private:
     Symbol condition;
     std::vector<std::vector<Symbol>> replacements;
@@ -20,6 +20,8 @@ class rule {
     rule(Symbol cond, std::vector<std::vector<Symbol>> rep, std::discrete_distribution<> dist);
     rule(rule && r);
     std::vector<Symbol> getReplacement(const Symbol& c);
+
+    friend class LSystem;
 };
 
  #endif

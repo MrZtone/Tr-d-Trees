@@ -5,11 +5,8 @@
 #include <glm/glm.hpp>
 
 class Symbol {
-    friend class LSystem;
-    friend class rule;
-    friend class Tree;
     
-    protected:
+    private:
     char signifier;
     glm::mat4 (*function)(float);
     float parameter;
@@ -20,6 +17,10 @@ class Symbol {
     Symbol(char sig);
     char getSignifier();
     bool equals(const Symbol& C);
+
+    friend class LSystem;
+    friend class rule;
+    friend class Tree;
 };
 
 #endif

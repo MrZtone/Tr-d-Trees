@@ -8,7 +8,7 @@ void Tree::Draw(Shader shader, MatrixStack& MS) {
     std::vector<Symbol>::iterator it = L.axiom.begin();
     for( ; it != L.axiom.end(); ++it) {
         
-        if((*it).getSignifier() == 'F') {
+        if((*it).getSignifier() == 'G') {
             MS.push();
             MS.addTransformation(glm::scale(glm::mat4(1.0f), glm::vec3(1.0f, (*it).parameter, 1.0f)));
             branch.Draw(shader, MS);
